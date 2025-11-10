@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Library — Books</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Library</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Books</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-light" th:href="@{/add}">Add New Book</a>
+  </div>
+</nav>
+
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Library Books</h1>
+  </div>
+
+  <div th:if="${bookList.empty}">
+    <div class="alert alert-info">No books found. Click "Add New Book" to create one.</div>
+  </div>
+
+  <div th:if="${!bookList.empty}">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th><th>Title</th><th>Author</th><th>ISBN</th><th>Copies</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="book : ${bookList}">
+            <td th:text="${book.id}">1</td>
+            <td th:text="${book.title}">Title</td>
+            <td th:text="${book.author}">Author</td>
+            <td th:text="${book.isbn}">ISBN</td>
+            <td th:text="${book.availableCopies}">0</td>
+            <td>
+              <a class="btn btn-sm btn-outline-primary me-1" th:href="@{|/edit/${book.id}|}">Edit</a>
+              <a class="btn btn-sm btn-outline-danger" 
+                 th:href="@{|/delete/${book.id}|}" 
+                 onclick="return confirm('Delete this book?');">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
