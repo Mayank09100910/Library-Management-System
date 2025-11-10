@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Edit Book — Library</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Library</a>
+    <div class="collapse navbar-collapse"></div>
+    <a class="btn btn-light" th:href="@{/}">Back to list</a>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title mb-3">Edit Book</h2>
+      <form th:action="@{/save}" th:object="${book}" method="post" novalidate>
+        <input type="hidden" th:field="*{id}"/>
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" th:field="*{title}" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Author</label>
+          <input type="text" th:field="*{author}" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">ISBN</label>
+          <input type="text" th:field="*{isbn}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Available Copies</label>
+          <input type="number" th:field="*{availableCopies}" class="form-control" min="0" required/>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary" type="submit">Update</button>
+          <a th:href="@{/}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
